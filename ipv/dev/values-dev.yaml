@@ -1,10 +1,9 @@
-replicaCount: 1
-
 image:
   repository: dragos93/argocd
-  tag: "ipv-dev-0.0.1"      # 👈 the exact tag you pushed
-  pullPolicy: IfNotPresent
+  tag: "hello-ipv-2.0.0"   # 👈 new version, dev only
+
+replicaCount: 1
 
 service:
   type: ClusterIP
-  port: 8080                # our Node app listens on 8080
+  port: 8080
