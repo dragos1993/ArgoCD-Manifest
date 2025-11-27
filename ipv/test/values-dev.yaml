@@ -1,0 +1,9 @@
+image:
+  repository: dragos93/argocd
+  tag: "ipv-dev-0.0.1"   # later maybe ipv-test-0.0.1
+
+replicaCount: 1
+
+service:
+  type: ClusterIP
+  port: 8080
