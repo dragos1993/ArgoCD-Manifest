@@ -1,23 +1,23 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: ipv-uat
+  name: ipv-api-prod
   namespace: argocd
 spec:
   project: default
   sources:
     - repoURL: 'https://github.com/dragos1993/ArgoCD-src-code.git'
       targetRevision: main
-      path: charts/ipv
+      path: charts/ipv-api
       helm:
         valueFiles:
-          - $values/ipv/uat/values-uat.yaml
+          - $values/ipv/prod/values-prod.yaml
     - repoURL: 'https://github.com/dragos1993/ArgoCD-Manifest.git'
       targetRevision: main
       ref: values
   destination:
     server: 'https://kubernetes.default.svc'
-    namespace: ipv-uat
+    namespace: ipv-prod
   syncPolicy:
     automated:
       prune: true
