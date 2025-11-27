@@ -6,12 +6,14 @@ metadata:
 spec:
   project: default
   sources:
+    # Source 1: Helm chart repo (backend API)
     - repoURL: 'https://github.com/dragos1993/ArgoCD-src-code.git'
       targetRevision: main
       path: charts/ipv-api
       helm:
         valueFiles:
-          - $values/ipv-api/dev/values-dev.yaml   # 👈 updated path
+          - $values/ipv-api/dev/values-dev.yaml   # 👈 IMPORTANT: starts with $values
+    # Source 2: values repo
     - repoURL: 'https://github.com/dragos1993/ArgoCD-Manifest.git'
       targetRevision: main
       ref: values
