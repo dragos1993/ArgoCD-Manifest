@@ -1,6 +1,6 @@
 image:
   repository: dragos93/argocd
-  tag: "ipv-dev-0.0.1"
+  tag: "ipv-api-1.0.0"
 
 replicaCount: 1
 
