@@ -2,22 +2,22 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: ipv-dev
-  namespace: argocd        # where Argo CD is installed
+  namespace: argocd
 spec:
   project: default
 
   sources:
-    # 1) Source: Helm chart (repo A)
+    # 1) Helm chart from repo A
     - repoURL: 'https://github.com/dragos1993/ArgoCD-src-code.git'
-      targetRevision: main           # or master
+      targetRevision: main          # or master if that’s your branch
       path: charts/ipv
       helm:
         valueFiles:
-          - $values/ipv/dev/values-dev.yaml   # 👈 from repo B
+          - $values/ipv/dev/values-dev.yaml
 
-    # 2) Source: values (repo B)
+    # 2) Values repo (repo B)
     - repoURL: 'https://github.com/dragos1993/ArgoCD-Manifest.git'
-      targetRevision: main           # or master
+      targetRevision: main
       ref: values
 
   destination:
