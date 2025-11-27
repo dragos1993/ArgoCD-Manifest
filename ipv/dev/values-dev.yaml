@@ -1,0 +1,9 @@
+image:
+  repository: dragos93/ipv
+  tag: "dev-0.0.1"    # CI will update THIS tag
+
+replicaCount: 1
+
+service:
+  type: ClusterIP
+  port: 80

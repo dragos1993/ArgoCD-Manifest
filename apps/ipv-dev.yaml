@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ipv-dev
+  namespace: argocd        # where Argo CD is installed
+spec:
+  project: default
+
+  sources:
+    # 1) Source: Helm chart (repo A)
+    - repoURL: 'https://github.com/dragos1993/ArgoCD-src-code.git'
+      targetRevision: main           # or master
+      path: charts/ipv
+      helm:
+        valueFiles:
+          - $values/ipv/dev/values-dev.yaml   # 👈 from repo B
+
+    # 2) Source: values (repo B)
+    - repoURL: 'https://github.com/dragos1993/ArgoCD-Manifest.git'
+      targetRevision: main           # or master
+      ref: values
+
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: ipv-dev
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
