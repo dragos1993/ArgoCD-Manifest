@@ -11,7 +11,7 @@ spec:
       path: charts/ipv-api
       helm:
         valueFiles:
-          - $values/ipv/test/values-test.yaml
+          - $values/ipv-api/test/values-test.yaml
     - repoURL: 'https://github.com/dragos1993/ArgoCD-Manifest.git'
       targetRevision: main
       ref: values

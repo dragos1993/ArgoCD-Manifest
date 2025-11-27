@@ -5,19 +5,25 @@ metadata:
   namespace: argocd
 spec:
   project: default
+
   sources:
+    # 1) Helm chart for ipv-ui (repo A)
     - repoURL: 'https://github.com/dragos1993/ArgoCD-src-code.git'
       targetRevision: main
       path: charts/ipv-ui
       helm:
         valueFiles:
-          - $values/ipv-frontend/dev/values-dev.yaml
+          - $values/ipv-ui/dev/values-dev.yaml   # 👈 values from repo B
+
+    # 2) Values repo (repo B)
     - repoURL: 'https://github.com/dragos1993/ArgoCD-Manifest.git'
       targetRevision: main
       ref: values
+
   destination:
     server: 'https://kubernetes.default.svc'
-    namespace: ipv-ui-dev
+    namespace: ipv-dev          # 👈 same namespace as ipv-api
+
   syncPolicy:
     automated:
       prune: true

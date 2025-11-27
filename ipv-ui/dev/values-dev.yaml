@@ -1,0 +1,9 @@
+image:
+  repository: dragos93/argocd
+  tag: "ipv-ui-1.0.0"   # the UI image you built
+
+replicaCount: 1
+
+service:
+  type: ClusterIP
+  port: 8080
