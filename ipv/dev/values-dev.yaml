@@ -1,9 +1,10 @@
-image:
-  repository: dragos93/ipv
-  tag: "dev-0.0.1"    # CI will update THIS tag
-
 replicaCount: 1
+
+image:
+  repository: dragos93/argocd
+  tag: "ipv-dev-0.0.1"      # 👈 the exact tag you pushed
+  pullPolicy: IfNotPresent
 
 service:
   type: ClusterIP
-  port: 80
+  port: 8080                # our Node app listens on 8080
