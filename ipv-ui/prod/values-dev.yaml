@@ -2,8 +2,7 @@ image:
   repository: dragos93/argocd
   tag: "ipv-ui-1.0.0"
 
-replicaCount: 1
-
+replicaCount: 2       # maybe more replicas in prod
 service:
   type: ClusterIP
   port: 8080

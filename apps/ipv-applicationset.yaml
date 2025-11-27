@@ -1,0 +1,52 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: ipv
+  namespace: argocd
+spec:
+  generators:
+    - list:
+        elements:
+          - env: dev
+          - env: test
+          - env: uat
+          - env: prod
+
+  template:
+    metadata:
+      name: "ipv-{{env}}"
+    spec:
+      project: default
+
+      sources:
+        # API chart
+        - repoURL: 'https://github.com/dragos1993/ArgoCD-src-code.git'
+          targetRevision: main
+          path: charts/ipv-api
+          helm:
+            valueFiles:
+              - "$values/ipv-api/{{env}}/values-{{env}}.yaml"
+
+        # UI chart
+        - repoURL: 'https://github.com/dragos1993/ArgoCD-src-code.git'
+          targetRevision: main
+          path: charts/ipv-ui
+          helm:
+            valueFiles:
+              - "$values/ipv-ui/{{env}}/values-{{env}}.yaml"
+
+        # Values repo
+        - repoURL: 'https://github.com/dragos1993/ArgoCD-Manifest.git'
+          targetRevision: main
+          ref: values
+
+      destination:
+        server: "https://kubernetes.default.svc"
+        namespace: "ipv-{{env}}"
+
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
