@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: ipv-dev
+  name: ipv-prod
   namespace: argocd
 spec:
   project: default
@@ -11,13 +11,13 @@ spec:
       path: charts/ipv
       helm:
         valueFiles:
-          - $values/ipv/dev/values-dev.yaml
+          - $values/ipv/prod/values-prod.yaml
     - repoURL: 'https://github.com/dragos1993/ArgoCD-Manifest.git'
       targetRevision: main
       ref: values
   destination:
     server: 'https://kubernetes.default.svc'
-    namespace: ipv-dev
+    namespace: ipv-prod
   syncPolicy:
     automated:
       prune: true
