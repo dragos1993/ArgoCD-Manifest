@@ -22,6 +22,8 @@ spec:
     namespace: ipv-test
 
   syncPolicy:
-    automated: {}
+    automated:
+      selfHeal: true
+      prune: true
     syncOptions:
       - CreateNamespace=true
