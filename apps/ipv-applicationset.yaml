@@ -7,42 +7,53 @@ spec:
   generators:
     - list:
         elements:
+          # dev
           - env: dev
+            component: api
+          - env: dev
+            component: ui
+
+          # test
           - env: test
+            component: api
+          - env: test
+            component: ui
+
+          # uat
           - env: uat
+            component: api
+          - env: uat
+            component: ui
+
+          # prod
           - env: prod
+            component: api
+          - env: prod
+            component: ui
 
   template:
     metadata:
-      name: "ipv-{{env}}"
+      name: "ipv-{{component}}-{{env}}"   # ipv-api-dev, ipv-ui-dev, etc.
     spec:
       project: default
 
       sources:
-        # API chart
+        # The component-specific Helm chart (ipv-api or ipv-ui)
         - repoURL: 'https://github.com/dragos1993/ArgoCD-src-code.git'
           targetRevision: main
-          path: charts/ipv-api
+          path: "charts/ipv-{{component}}"
           helm:
             valueFiles:
-              - "$values/ipv-api/{{env}}/values-{{env}}.yaml"
+              - "$values/ipv-{{component}}/{{env}}/values-{{env}}.yaml"
 
-        # UI chart
-        - repoURL: 'https://github.com/dragos1993/ArgoCD-src-code.git'
-          targetRevision: main
-          path: charts/ipv-ui
-          helm:
-            valueFiles:
-              - "$values/ipv-ui/{{env}}/values-{{env}}.yaml"
-
-        # Values repo
+        # Values repo (for $values/...)
         - repoURL: 'https://github.com/dragos1993/ArgoCD-Manifest.git'
           targetRevision: main
           ref: values
 
       destination:
         server: "https://kubernetes.default.svc"
-        namespace: "ipv-{{env}}"
+        namespace: "ipv-{{env}}"   # api + ui together per env
 
       syncPolicy:
         automated:
