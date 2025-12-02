@@ -8,10 +8,14 @@ spec:
   source:
     repoURL: 'https://github.com/dragos1993/ArgoCD-Manifest.git'
     targetRevision: main
-    path: apps      # 👈 scans apps/ recursively
+    path: apps
+    directory:
+      recurse: true          # 👈 THIS is the missing piece
+
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: argocd
+
   syncPolicy:
     automated:
       prune: true
