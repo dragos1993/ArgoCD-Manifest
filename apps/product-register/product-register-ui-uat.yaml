@@ -1,29 +1,30 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: ipv-ui-uat
+  name: product-register-ui-uat
   namespace: argocd
 spec:
   project: default
+
   sources:
     - repoURL: 'https://github.com/dragos1993/ArgoCD-src-code.git'
       targetRevision: main
-      path: charts/ipv-ui
+      path: charts/product-register-ui
       helm:
         valueFiles:
-          - $values/ipv-ui/uat/values-uat.yaml
+          - $values/helm/product-register/product-register-ui/values-uat.yaml
 
     - repoURL: 'https://github.com/dragos1993/ArgoCD-Manifest.git'
       targetRevision: main
       ref: values
 
   destination:
-    server: https://kubernetes.default.svc
-    namespace: ipv-uat
+    server: 'https://kubernetes.default.svc'
+    namespace: product-register-ui-uat
 
   syncPolicy:
     automated:
-      selfHeal: true
       prune: true
+      selfHeal: true
     syncOptions:
       - CreateNamespace=true

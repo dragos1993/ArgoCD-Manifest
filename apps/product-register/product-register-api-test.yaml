@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: product-register-ui-prod
+  name: product-register-api-test
   namespace: argocd
 spec:
   project: default
@@ -9,10 +9,10 @@ spec:
   sources:
     - repoURL: 'https://github.com/dragos1993/ArgoCD-src-code.git'
       targetRevision: main
-      path: charts/product-register-ui
+      path: charts/product-register-api
       helm:
         valueFiles:
-          - $values/helm/product-register/product-register-ui/values-prod.yaml
+          - $values/helm/product-register/product-register-api/values-test.yaml
 
     - repoURL: 'https://github.com/dragos1993/ArgoCD-Manifest.git'
       targetRevision: main
@@ -20,9 +20,11 @@ spec:
 
   destination:
     server: 'https://kubernetes.default.svc'
-    namespace: product-register-ui-prod
+    namespace: product-register-api-test
 
   syncPolicy:
-    # manual prod
+    automated:
+      prune: true
+      selfHeal: true
     syncOptions:
       - CreateNamespace=true

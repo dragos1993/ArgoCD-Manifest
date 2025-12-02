@@ -1,29 +1,32 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: ipv-api-dev
+  name: incident-reporting-api-dev
   namespace: argocd
 spec:
   project: default
+
   sources:
+    # 1) Helm chart (Repo A)
     - repoURL: 'https://github.com/dragos1993/ArgoCD-src-code.git'
       targetRevision: main
-      path: charts/ipv-api
+      path: charts/incident-reporting-api
       helm:
         valueFiles:
-          - $values/ipv-api/dev/values-dev.yaml
+          - $values/helm/incident-reporting/incident-reporting-api/values-dev.yaml
 
+    # 2) Values (Repo B)
     - repoURL: 'https://github.com/dragos1993/ArgoCD-Manifest.git'
       targetRevision: main
       ref: values
 
   destination:
-    server: https://kubernetes.default.svc
-    namespace: ipv-dev
+    server: 'https://kubernetes.default.svc'
+    namespace: incident-reporting-api-dev
 
   syncPolicy:
     automated:
-      selfHeal: true
       prune: true
+      selfHeal: true
     syncOptions:
       - CreateNamespace=true
