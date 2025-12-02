@@ -5,25 +5,26 @@ metadata:
   namespace: argocd
 spec:
   project: default
+
   sources:
     - repoURL: 'https://github.com/dragos1993/ArgoCD-src-code.git'
       targetRevision: main
       path: charts/ipv-ui
       helm:
         valueFiles:
-          - $values/ipv-ui/test/values-test.yaml
+          - $values/helm/ipv/ipv-ui/values-test.yaml
 
     - repoURL: 'https://github.com/dragos1993/ArgoCD-Manifest.git'
       targetRevision: main
       ref: values
 
   destination:
-    server: https://kubernetes.default.svc
-    namespace: ipv-test
+    server: 'https://kubernetes.default.svc'
+    namespace: ipv-ui-test
 
   syncPolicy:
     automated:
-      selfHeal: true
       prune: true
+      selfHeal: true
     syncOptions:
       - CreateNamespace=true
