@@ -1,25 +1,18 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: platform-root
-  namespace: argocd
-spec:
-  project: default
+   32b7762..1e26ce1  main -> main
 
-  source:
-    repoURL: 'https://github.com/dragos1993/ArgoCD-Manifest.git'
-    targetRevision: main
-    path: apps   # <--- IMPORTANT: points to apps/ which contains all child apps
+LL+dravrinc@WKWEJ469685624 MINGW64 ~/Desktop/Learning/ArgoCD/ArgoCD-Manifest (main)        
+$ kubectl apply -f platform-root.yaml -n argocd
+application.argoproj.io/platform-root created
 
-  destination:
-    server: 'https://kubernetes.default.svc'
-    namespace: argocd
+LL+dravrinc@WKWEJ469685624 MINGW64 ~/Desktop/Learning/ArgoCD/ArgoCD-Manifest (main)
+$ kubectl get apps -n argocd
+NAME            SYNC STATUS   HEALTH STATUS
+platform-root   Synced        Healthy
 
-  syncPolicy:
-    automated:
-      prune: true        # delete old children that are removed from repo
-      selfHeal: true     # fix drift automatically
+LL+dravrinc@WKWEJ469685624 MINGW64 ~/Desktop/Learning/ArgoCD/ArgoCD-Manifest (main)
+$ kubectl get pod -n ipv
+No resources found in ipv namespace.
 
-    syncOptions:
-      - CreateNamespace=true
-      - PruneLast=true
+LL+dravrinc@WKWEJ469685624 MINGW64 ~/Desktop/Learning/ArgoCD/ArgoCD-Manifest (main)        
+$ kubectl get pod -n ipv-dev
+No resources found in ipv-dev namespace.

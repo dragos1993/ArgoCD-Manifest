@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: ipv-ui-uat
+  name: ipv-ui-prod
   namespace: argocd
 spec:
   project: default
@@ -12,7 +12,7 @@ spec:
       path: charts/ipv-ui
       helm:
         valueFiles:
-          - $values/helm/ipv/ipv-ui/values-uat.yaml
+          - $values/helm/ipv/ipv-ui/values-prod.yaml
 
     - repoURL: 'https://github.com/dragos1993/ArgoCD-Manifest.git'
       targetRevision: main
@@ -20,11 +20,9 @@ spec:
 
   destination:
     server: 'https://kubernetes.default.svc'
-    namespace: ipv-uat
+    namespace: ipv-prod
 
   syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
+    # manual sync for prod
     syncOptions:
       - CreateNamespace=true

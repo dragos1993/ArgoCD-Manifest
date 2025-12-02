@@ -20,7 +20,7 @@ spec:
 
   destination:
     server: 'https://kubernetes.default.svc'
-    namespace: product-register-api-uat
+    namespace: product-register-uat
 
   syncPolicy:
     automated:

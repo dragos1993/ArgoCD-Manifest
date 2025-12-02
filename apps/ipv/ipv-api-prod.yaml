@@ -23,6 +23,6 @@ spec:
     namespace: ipv-prod
 
   syncPolicy:
-    # manual prod sync; you can add 'automated' later if you want
+    # manual prod sync
     syncOptions:
       - CreateNamespace=true

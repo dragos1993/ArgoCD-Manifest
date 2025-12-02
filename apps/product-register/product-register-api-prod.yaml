@@ -20,9 +20,8 @@ spec:
 
   destination:
     server: 'https://kubernetes.default.svc'
-    namespace: product-register-api-prod
+    namespace: product-register-prod
 
   syncPolicy:
-    # manual prod sync; add automated if you want
     syncOptions:
       - CreateNamespace=true
