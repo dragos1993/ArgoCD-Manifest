@@ -20,8 +20,7 @@ spec:
 
   destination:
     server: 'https://kubernetes.default.svc'
-    namespace: ipv-dev
-
+    namespace: ipv-dev        # 👈 same namespace
 
   syncPolicy:
     automated:
