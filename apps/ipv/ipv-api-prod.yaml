@@ -23,6 +23,8 @@ spec:
     namespace: ipv-prod
 
   syncPolicy:
-    # manual prod sync
+    automated:
+      prune: true
+      selfHeal: true
     syncOptions:
       - CreateNamespace=true
