@@ -20,7 +20,8 @@ spec:
 
   destination:
     server: 'https://kubernetes.default.svc'
-    namespace: ipv-api-prod
+    namespace: ipv-prod
+
 
   syncPolicy:
     # manual sync for prod; you can add automated if you want

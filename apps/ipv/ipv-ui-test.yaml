@@ -20,7 +20,7 @@ spec:
 
   destination:
     server: 'https://kubernetes.default.svc'
-    namespace: ipv-ui-test
+    namespace: ipv-test
 
   syncPolicy:
     automated:
