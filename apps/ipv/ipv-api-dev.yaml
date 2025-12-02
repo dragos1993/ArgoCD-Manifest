@@ -7,7 +7,6 @@ spec:
   project: default
 
   sources:
-    # 1) Chart from ArgoCD-src-code
     - repoURL: 'https://github.com/dragos1993/ArgoCD-src-code.git'
       targetRevision: main
       path: charts/ipv-api
@@ -15,14 +14,13 @@ spec:
         valueFiles:
           - $values/helm/ipv/ipv-api/values-dev.yaml
 
-    # 2) Values from ArgoCD-Manifest
     - repoURL: 'https://github.com/dragos1993/ArgoCD-Manifest.git'
       targetRevision: main
       ref: values
 
   destination:
     server: 'https://kubernetes.default.svc'
-    namespace: ipv-dev        # 👈 both api & ui go to ipv-dev
+    namespace: ipv-dev
 
   syncPolicy:
     automated:
