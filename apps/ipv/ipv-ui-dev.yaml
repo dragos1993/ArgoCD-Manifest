@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: ipv-api-dev
+  name: ipv-ui-dev
   namespace: argocd
 spec:
   project: default
@@ -9,10 +9,10 @@ spec:
   sources:
     - repoURL: 'https://github.com/dragos1993/ArgoCD-src-code.git'
       targetRevision: main
-      path: charts/ipv-api
+      path: charts/ipv-ui
       helm:
         valueFiles:
-          - $values/helm/ipv/ipv-api/values-dev.yaml
+          - $values/helm/ipv/ipv-ui/values-dev.yaml
 
     - repoURL: 'https://github.com/dragos1993/ArgoCD-Manifest.git'
       targetRevision: main
@@ -20,7 +20,7 @@ spec:
 
   destination:
     server: 'https://kubernetes.default.svc'
-    namespace: ipv-api-dev
+    namespace: ipv-ui-dev
 
   syncPolicy:
     automated:
